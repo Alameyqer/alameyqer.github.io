@@ -76,11 +76,13 @@ a {
 .user__nav-up {
 	@include btn(transparent, 16px, 10%);
 	padding: 0;
-	margin-right: 25px;
+	margin: 0 20px;
+	flex-wrap: wrap;
 	color: #fff;
 }
 .user__nav-in {
 	@include btn($gold, 16px, 10%);
+	flex-wrap: wrap;
 	color: #fff;
 }
 
@@ -119,7 +121,7 @@ a {
 			transition: 0.5s ease;
 		}
 		&-link:hover {
-			color: #fff;
+			color: #cccaca;
 		}
 	}
 }
@@ -136,11 +138,26 @@ a {
 		max-width: 40%;
 		margin-left: 20px;
 		margin-top: 100px;
-		color: #fff;
+		color: #cccaca;
 		font-size: 20px;
 		font-weight: 500;
 		text-align: center;
 	}
+}
+.black__inner {
+	display: flex;
+	margin: 90px 0 70px 0;
+	&-text {
+		color: #cccaca;
+		font-size: 17px;
+		font-weight: 400;
+		margin-top: 15px;
+		margin-right: 15px;
+		width: 80%;
+	}
+}
+.black__img-no {
+	display: none;
 }
 .footer {
 	background-color: rgb(49, 49, 49);
@@ -154,7 +171,7 @@ a {
 			display: flex;
 			justify-content: center;
 			list-style: none;
-			text-align: center;
+			align-items: center;
 		}
 		&-link {
 			color: #fff;
@@ -179,7 +196,22 @@ a {
 		margin-left: 15px;
 	}
 }
-@media screen and (max-width: 768px) {
+
+@media screen and (max-width: 992px) {
+	.nav {
+		&-item {
+			font-size: 16px;
+		}
+		&-li {
+			margin-left: 15px;
+		}
+	}
+	.user__nav-in {
+		margin: 5px 15px;
+	}
+	.user__nav-up {
+		margin: 5px 15px;
+	}
 	.line {
 		width: 30px;
 		height: 3px;
@@ -212,7 +244,7 @@ a {
 	}
 	.nav-links.open {
 		clip-path: circle(1000px at 90% -10%);
-		-webkit-clip-path: circle(1000px at 90% -10%);
+		-webkit-clip-path: circle(1000px at 50% -10%);
 		pointer-events: all;
 	}
 	.landing {
@@ -235,5 +267,46 @@ a {
 	}
 	.nav-li.fade {
 		opacity: 1;
+	}
+	.black__inner-text {
+		width: 100%;
+	}
+	.black__img {
+		margin-top: 25px;
+	}
+}
+@media screen and (max-width: 768px) {
+	.main__inner-title {
+		color: $gold;
+		text-align: center;
+	}
+	.slider__inner {
+		display: block;
+		&-text {
+			max-width: 100%;
+			margin-left: 0;
+			margin-top: 50px;
+		}
+	}
+	.black__inner {
+		display: block;
+		&-text {
+			text-align: center;
+			width: 100%;
+		}
+	}
+	.black__img {
+		display: none;
+		&-no {
+			display: block;
+		}
+	}
+	.footer__inner {
+		display: block;
+		text-align: center;
+		&-list {
+			display: block;
+			text-align: center;
+		}
 	}
 }
