@@ -215,7 +215,7 @@ a {
 	.line {
 		width: 30px;
 		height: 3px;
-		background: white;
+		background: $gold;
 		margin: 5px;
 	}
 	.nav-logo {
@@ -308,5 +308,10 @@ a {
 			display: block;
 			text-align: center;
 		}
+	}
+}
+@media screen and (max-width: 538px) {
+	.main__inner-title {
+		padding-top: 90px;
 	}
 }
