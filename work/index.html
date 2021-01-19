@@ -16,7 +16,9 @@
 		<title>shopno.org</title>
 	</head>
 	<body>
-		<header class="header">
+<!-- 		 hishe vor cinjis ++++++++++++++++++++++++-->
+		<canvas width="530" height="370"></canvas>
+<!-- 		<header class="header">
 			<div class="container">
 				<div class="header__bg">
 					<nav class="navbar navbar-expand-fluid navbar-light bg-light">
@@ -454,6 +456,112 @@
 				prevArrow: '<button type="button" class="feedback__slider__btn feedback__prev__btn"><img src="img/team/nav/pref.svg"/></button>',
 				nextArrow: '<button type="button" class="feedback__slider__btn feedback__next__btn"><img src="img/team/nav/next.svg"/></button>',
 			});
-		</script>
+		</script> -->
+<!-- 				hishe vor cinjis -->
+				<script type="text/javascript">const canvas = document.querySelector("canvas");
+const context = canvas.getContext("2d");
+
+let data = {
+  players: {
+    left: {
+      x: 0,
+      y: 0
+    },
+    right: {
+      x: 520,
+      y: 0
+    },
+    width: 10,
+    height: 100,
+    color: "#fff"
+  },
+  circle: {
+    width: 25,
+    height: 25,
+    x: 225,
+    y: 125,
+
+  }
+}
+let xDelta = 5;
+let yDelta = 5;
+let leftDletaPlayer = 10;
+let rightDletaPlayer = 10;
+const players = data.players
+const circle = data.circle
+
+function leftPlayer() {
+  context.fillRect(players.left.x, players.left.y, players.width, players.height);
+}
+
+function rightPlayer() {
+  context.fillRect(players.right.x, players.right.y, players.width, players.height)
+}
+
+function update() {
+  if (circle.x + circle.width > canvas.width || circle.x < 0) {
+    xDelta *= -1
+  }
+  if (circle.y + circle.height > canvas.height || circle.y < 0) {
+    yDelta *= -1
+  }
+  circle.x += xDelta
+  circle.y += yDelta
+}
+
+function drowPlayers() {
+  context.fillStyle = players.color
+  context.clearRect(0, 0, canvas.width, canvas.height)
+  context.fillRect(circle.x, circle.y, circle.width, circle.height)
+  leftPlayer()
+  rightPlayer()
+
+}
+
+function loop() {
+  requestAnimationFrame(loop);
+  update();
+  drowPlayers();
+
+}
+loop()
+
+document.addEventListener("keydown", function(evt) {
+  if (players.left.y === 0) {
+    leftDletaPlayer = 0
+    if (evt.code === "ArrowDown") {
+      leftDletaPlayer += 10
+    }
+  }
+  if (players.left.y + players.height === canvas.height) {
+    leftDletaPlayer = 0
+    if (evt.code === "ArrowUp") {
+      leftDletaPlayer += 10
+    }
+  }
+  if (players.right.y === 0) {
+    rightDletaPlayer = 0
+    if (evt.code === "KeyS") {
+      rightDletaPlayer += 10
+    }
+  }
+  if (players.right.y + players.height === canvas.height) {
+    rightDletaPlayer = 0
+    if (evt.code === "KeyW") {
+      rightDletaPlayer += 10
+    }
+  }
+  if (evt.code === "ArrowDown") {
+    players.left.y += leftDletaPlayer
+  } else if (evt.code === "ArrowUp") {
+    players.left.y += leftDletaPlayer * -1
+  }
+  if (evt.code === "KeyS") {
+    players.right.y += rightDletaPlayer
+  } else if (evt.code === "KeyW") {
+    players.right.y += rightDletaPlayer * -1
+  }
+})
+</script>
 	</body>
 </html>
