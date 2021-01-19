@@ -1,4 +1,4 @@
-html {
+/* html {
   font-size: 10px;
 }
 body {
@@ -541,4 +541,12 @@ button:focus {
   .feedback__next__btn {
     right: 10%;
   }
+}
+ */
+canvas {
+  border: solid 1px #fff;
+  
+}
+body{
+  background-color: #000;
 }
