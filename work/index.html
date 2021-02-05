@@ -456,110 +456,130 @@
 			});
 		</script> -->
 <!-- 				hishe vor cinjis -->
-				<script type="text/javascript">const canvas = document.querySelector("canvas");
+				<script type="text/javascript">
+					const canvas = document.querySelector("canvas");
+const paragraphLeftPlayer = document.querySelector(".leftPlayer");
+const paragraphRightPlayer = document.querySelector(".rightPlayer");
 const context = canvas.getContext("2d");
 
 let data = {
-  players: {
-    left: {
-      x: 0,
-      y: 0
-    },
-    right: {
-      x: 520,
-      y: 0
-    },
+  playerLeft: {
+    x: 0,
+    y: canvas.height / 2,
     width: 10,
     height: 100,
-    color: "#fff"
+    yDelta: 10,
+    leftPoint: 0
+  },
+  playerRight: {
+    x: 490,
+    y: canvas.height / 2,
+    width: 10,
+    height: 100,
+    yDelta: 10,
+    rightPoint: 0
   },
   circle: {
     width: 25,
     height: 25,
     x: 225,
     y: 125,
-
+    xDelta: 2,
+    yDelta: 2
   }
-}
-let xDelta = 5;
-let yDelta = 5;
-let leftDletaPlayer = 10;
-let rightDletaPlayer = 10;
-const players = data.players
-const circle = data.circle
 
-function leftPlayer() {
-  context.fillRect(players.left.x, players.left.y, players.width, players.height);
+}
+let gameOver = true
+
+function intersect(rect1, rect2) {
+  const x = Math.max(rect1.x, rect2.x),
+    num1 = Math.min(rect1.x + rect1.width, rect2.x + rect2.width),
+    y = Math.max(rect1.y, rect2.y),
+    num2 = Math.min(rect1.y + rect1.height, rect2.y + rect2.height);
+  return (num1 >= x && num2 >= y);
 }
 
-function rightPlayer() {
-  context.fillRect(players.right.x, players.right.y, players.width, players.height)
+
+function dorw() {
+  context.fillStyle = data.playerLeft.color
+  context.fillStyle = data.playerRight.color
+  context.clearRect(0, 0, canvas.width, canvas.height)
+  context.fillRect(data.circle.x, data.circle.y, data.circle.width, data.circle.height)
+  /* players */
+  context.fillRect(data.playerLeft.x, data.playerLeft.y, data.playerLeft.width, data.playerLeft.height)
+  context.fillRect(data.playerRight.x, data.playerRight.y, data.playerRight.width, data.playerRight.height);
 }
+
+
 
 function update() {
-  if (circle.x + circle.width > canvas.width || circle.x < 0) {
-    xDelta *= -1
-  }
-  if (circle.y + circle.height > canvas.height || circle.y < 0) {
-    yDelta *= -1
-  }
-  circle.x += xDelta
-  circle.y += yDelta
-}
 
-function drowPlayers() {
-  context.fillStyle = players.color
-  context.clearRect(0, 0, canvas.width, canvas.height)
-  context.fillRect(circle.x, circle.y, circle.width, circle.height)
-  leftPlayer()
-  rightPlayer()
+  if (data.circle.y + data.circle.height > canvas.height || data.circle.y < 0) {
+    data.circle.yDelta *= -1
+  }
+  if (data.circle.x + data.circle.width > canvas.width) {	
+  	paragraphLeftPlayer.style  = "color:red;font-size:25px;font-weight:700;"
+  	paragraphLeftPlayer.innerHTML = "game over"
+    gameOver = false
+  } else if (data.circle.x < 0) {
+    /* data.playerRight.rightPoint += 1;
+    paragraphLeftPlayer.innerHTML = data.playerRight.rightPoint; */
+    paragraphLeftPlayer.innerHTML = "game over"
+    gameOver = false
+  }
 
+  /* intersect */
+  if (intersect(data.playerRight, data.circle)) {
+    data.circle.xDelta *= -1
+    data.circle.yDelta *= -1
+  }
+  if (intersect(data.playerLeft, data.circle)) {
+    data.circle.yDelta *= -1
+    data.circle.xDelta *= -1
+  }
+
+
+  /* border */
+  if (data.playerRight.y < 0) {
+    data.playerRight.y = 0
+  } else if (data.playerRight.y + data.playerRight.height > canvas.height) {
+    data.playerRight.y = canvas.height - data.playerRight.height
+  }
+  if (data.playerLeft.y < 0) {
+    data.playerLeft.y = 0
+  } else if (data.playerLeft.y + data.playerLeft.height > canvas.height) {
+    data.playerLeft.y = canvas.height - data.playerLeft.height
+  }
+
+
+  data.circle.x += data.circle.xDelta
+  data.circle.y += data.circle.yDelta
 }
 
 function loop() {
-  requestAnimationFrame(loop);
+  if (gameOver) {
+    requestAnimationFrame(loop);
+  }
   update();
-  drowPlayers();
+  dorw();
 
 }
+
 loop()
 
 document.addEventListener("keydown", function(evt) {
-  if (players.left.y === 0) {
-    leftDletaPlayer = 0
-    if (evt.code === "ArrowDown") {
-      leftDletaPlayer += 10
-    }
+  if (evt.code === "ArrowUp") {
+    data.playerRight.y -= data.playerRight.yDelta
+  } else if (evt.code === "ArrowDown") {
+    data.playerRight.y += data.playerRight.yDelta
   }
-  if (players.left.y + players.height === canvas.height) {
-    leftDletaPlayer = 0
-    if (evt.code === "ArrowUp") {
-      leftDletaPlayer += 10
-    }
-  }
-  if (players.right.y === 0) {
-    rightDletaPlayer = 0
-    if (evt.code === "KeyS") {
-      rightDletaPlayer += 10
-    }
-  }
-  if (players.right.y + players.height === canvas.height) {
-    rightDletaPlayer = 0
-    if (evt.code === "KeyW") {
-      rightDletaPlayer += 10
-    }
-  }
-  if (evt.code === "ArrowDown") {
-    players.left.y += leftDletaPlayer
-  } else if (evt.code === "ArrowUp") {
-    players.left.y += leftDletaPlayer * -1
-  }
-  if (evt.code === "KeyS") {
-    players.right.y += rightDletaPlayer
-  } else if (evt.code === "KeyW") {
-    players.right.y += rightDletaPlayer * -1
+  if (evt.code === "KeyW") {
+    data.playerLeft.y -= data.playerLeft.yDelta
+  } else if (evt.code === "KeyS") {
+    data.playerLeft.y += data.playerLeft.yDelta
   }
 })
+
 </script>
 	</body>
 </html>
