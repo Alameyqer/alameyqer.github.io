@@ -17,7 +17,7 @@
 	</head>
 	<body>
 <!-- 		 hishe vor cinjis ++++++++++++++++++++++++-->
-		<canvas width="500" height="300"></canvas>
+		<canvas width="100" height="1000"></canvas>
 <p class="leftPlayer"> </p>
 <p class="rightPlayer"></p>
 <!-- 		<header class="header">
@@ -474,7 +474,7 @@ let data = {
     leftPoint: 0
   },
   playerRight: {
-    x: 490,
+    x: canvas.width - 10,
     y: canvas.height / 2,
     width: 10,
     height: 100,
@@ -581,6 +581,7 @@ document.addEventListener("keydown", function(evt) {
     data.playerLeft.y += data.playerLeft.yDelta
   }
 })
+
 
 </script>
 	</body>
