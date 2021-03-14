@@ -458,6 +458,7 @@
 			});
 		</script> -->
 <!-- 				hishe vor cinjis -->
+		<!--  game
 				<script type="text/javascript">
 					const canvas = document.querySelector("canvas");
 const paragraphLeftPlayer = document.querySelector(".leftPlayer");
@@ -580,8 +581,158 @@ document.addEventListener("keydown", function(evt) {
   } else if (evt.code === "KeyS") {
     data.playerLeft.y += data.playerLeft.yDelta
   }
-})
+})-->
 
+const bracketSad = document.getElementById('bracket-sad');
+const bracketHappy = document.getElementById("bracket-happy");
+const percent = document.getElementById('percent');
+const clear = document.getElementById('clear');
+const seven = document.getElementById('seven');
+const eight = document.getElementById('eight');
+const nine = document.getElementById('nine');
+const division = document.getElementById('division');
+const four = document.getElementById('four');
+const five = document.getElementById('five');
+const six = document.getElementById('six');
+const multiplication = document.getElementById('multiplication');
+const one = document.getElementById('one');
+const two = document.getElementById('two');
+const three = document.getElementById('three');
+const subtraction = document.getElementById('subtraction');
+const zero = document.getElementById('zero');
+const point = document.getElementById('point');
+const equal = document.getElementById('equal');
+const addition = document.getElementById('addition');
+const input = document.getElementById('input')
+
+let blank = "";
+// 1st ROW!!!!!!!!!
+bracketSad.addEventListener("click", function() {
+  input.innerHTML += '(';
+
+});
+bracketHappy.addEventListener("click", function() {
+  input.innerHTML += ')';
+});
+percent.addEventListener("click", function() {
+  input.innerHTML += '%';
+});
+clear.addEventListener("click", function() {
+  input.innerHTML = '';
+  blank = "";
+});
+
+//2nd ROW!!!!!!!!!
+seven.addEventListener("click", function() {
+  input.innerHTML += '7';
+});
+eight.addEventListener("click", function() {
+  input.innerHTML += '8';
+});
+nine.addEventListener("click", function() {
+  input.innerHTML += '9';
+});
+division.addEventListener("click", function() {
+  input.innerHTML += ' / ';
+});
+
+//3rd ROW!!!!!!!!!
+four.addEventListener("click", function() {
+  input.innerHTML += '4';
+});
+five.addEventListener("click", function() {
+  input.innerHTML += '5';
+});
+six.addEventListener("click", function() {
+  input.innerHTML += '6';
+});
+multiplication.addEventListener("click", function() {
+  input.innerHTML += ' * ';
+});
+//4th ROW!!!!!!
+
+
+one.addEventListener("click", function() {
+  input.innerHTML += '1';
+});
+two.addEventListener("click", function() {
+  input.innerHTML += '2';
+});
+three.addEventListener("click", function() {
+  input.innerHTML += '3';
+});
+subtraction.addEventListener("click", function() {
+  input.innerHTML += " - ";
+});
+//5th ROW!!!!!!!
+
+
+zero.addEventListener("click", function() {
+  input.innerHTML += 0;
+});
+point.addEventListener("click", function() {
+  input.innerHTML += '.';
+
+});
+equal.addEventListener("click", function() {
+  blank = input.innerHTML;
+
+  const newBlank = blank.split(' ').filter((val) => {
+    if (val === '/' || val === '*' || val === '-' || val === '+') {
+      return;
+    } else {
+      return +val;
+    }
+
+  })
+  const intNewBlank = blank.split('').reduce((acc, num) => {
+    if (num === '/') {
+      let box = 0;
+      for (let i = 0; i < newBlank.length; i++) {
+        if (i === 0) {
+          box = +newBlank[i];
+        } else {
+          acc = box / +newBlank[i]
+        }
+      }
+    }
+    if (num === '*') {
+      let box = 0;
+      for (let i = 0; i < newBlank.length; i++) {
+        if (i === 0) {
+          box = +newBlank[i];
+        } else {
+          acc = box * +newBlank[i]
+        }
+      }
+    }
+    if (num === '-') {
+      let box = 0;
+      for (let i = 0; i < newBlank.length; i++) {
+        if (i === 0) {
+          box = +newBlank[i];
+        } else {
+          acc = box - +newBlank[i]
+        }
+      }
+    }
+    if (num === '+') {
+      let box = 0;
+      for (let i = 0; i < newBlank.length; i++) {
+        if (i === 0) {
+          box = +newBlank[i];
+        } else {
+          acc = box + (+newBlank[i])
+        }
+      }
+    }
+    return acc;
+  })
+  input.innerHTML = intNewBlank
+});
+addition.addEventListener("click", function() {
+  input.innerHTML += ' + ';
+});
 
 </script>
 	</body>
