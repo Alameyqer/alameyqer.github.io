@@ -567,3 +567,6 @@ canvas {
   text-align: right;
   width: 180px;
 }
+.btn-calculator:hover {
+  color: red;
+}
