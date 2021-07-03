@@ -7,7 +7,7 @@ $(function(){
         $('.info-tabs__item').removeClass("info-tabs__item--active");
         $(this).addClass('info-tabs__item--active');
 
-        $('.info-tabs__content').removeClass('.info-tabs__content--active');
+        $('.info-tabs__content').removeClass('info-tabs__content--active');
         
     });
 });
